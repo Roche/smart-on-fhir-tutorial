@@ -1,0 +1,718 @@
+{
+	"info": {
+		"_postman_id": "e74ff45a-f289-4d96-8f47-3c08c2ad98b0",
+		"name": "Patient Universal Enrollment Experience API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "2588040"
+	},
+	"item": [
+		{
+			"name": "status",
+			"item": [
+				{
+					"name": "Status-Query-example",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"uapi-query-2\",\n  \"meta\": {\n    \"profile\": [\n      \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-bundle-query\"\n    ]\n  },\n  \"type\": \"message\",\n  \"timestamp\": \"2020-03-11T08:10:13-05:00\",\n  \"entry\": [\n    {\n      \"fullUrl\": \"urn:uuid:0e0eac41-6127-4560-a094-e28245361e8e\",\n      \"resource\": {\n        \"resourceType\": \"MessageHeader\",\n        \"id\": \"04ba6102-8344-4c3e-b96e-e9fc75a7840c\",\n       \n        \"eventCoding\": {\n          \"system\": \"http://hl7.org/fhir/us/specialty-rx/CodeSystem/specialty-rx-event-type\",\n          \"code\": \"query\"\n        },\n        \"sender\": {\n          \"type\": \"Organization\",\n          \"identifier\": {\n            \"use\": \"usual\",\n            \"system\": \"http://vendor.com/ab\",\n            \"value\": \"HOSP-12345\",\n            \"assigner\": {\n              \"display\": \"AB Vendor\"\n            }\n          }\n        },\n        \"source\": {\n          \"name\": \"Vendor_AB\",\n          \"endpoint\": \"http://vendor.com/ab\"\n        },\n        \"focus\": [\n          {\n            \"reference\": \"urn:uuid:61ebe359-bfdc-4613-8bf2-c5e300945f0b\"\n          }\n        ]\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:61ebe359-bfdc-4613-8bf2-c5e300945f0b\",\n      \"resource\": {\n        \"resourceType\": \"Parameters\",\n        \"id\": \"61ebe359-bfdc-4613-8bf2-c5e300945f0b\",\n        \"parameter\": [\n          {\n            \"name\": \"requester-patient\",\n            \"valueReference\": {\n              \"type\": \"Patient\",\n              \"identifier\": {\n                \"use\": \"official\",\n                \"type\": {\n                  \"coding\": [\n                    {\n                      \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                      \"code\": \"PI\",\n                      \"display\": \"Patient internal identifier\"\n                    }\n                  ]\n                },\n                \"system\": \"http://vendor.com/ab\",\n                \"value\": \"6bcd8467-0473-4836-9128-2e7972f23177\",\n                \"assigner\": {\n                  \"display\": \"AB Vendor\"\n                }\n              }\n            }\n          },\n          {\n            \"name\": \"requester-servicerequest\",\n            \"valueReference\": {\n              \"reference\": \"urn:uuid:47aaa05f-33fe-4672-b0bf-0168bdd81630\"\n            }\n          },\n          {\n            \"name\": \"requester-bundle-enrollment-id\",\n            \"valueReference\": {\n              \"type\": \"Bundle\",\n              \"identifier\": {\n                \"type\": {\n                  \"coding\": [\n                    {\n                      \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                      \"code\": \"RI\",\n                      \"display\": \"Resource identifier\"\n                    }\n                  ]\n                },\n                \"system\": \"http://gene.com/fhir/enrollment/transactionid\",\n                \"value\": \"b73f7586-0be9-4cdf-8c98-4fe120e09bb9\"\n              }\n            }\n          },\n          {\n            \"name\": \"query-string\",\n            \"valueString\": \"CoverageEligibilityResponse?status=active\"\n          },\n          {\n            \"name\": \"query-string\",\n            \"valueString\": \"CoverageEligibilityResponse?outcome=error\"\n          }\n        ]\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:aecbb129-9a73-4b59-9d66-ff5cdb3f3164\",\n      \"resource\": {\n        \"resourceType\": \"ServiceRequest\",\n        \"id\": \"sr4gpf\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-servicerequest\"\n          ]\n        },\n       \n        \"status\": \"active\",\n        \"intent\": \"order\",\n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.gene.com/fhir/usix/uapi/CodeSystem/uapi-sr-type\",\n              \"code\": \"gpf\"\n            }\n          ]\n        },\n        \"subject\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        }\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"headerFamily": "json",
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/status",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"status"
+							]
+						},
+						"description": "Get Status of the Enrollment Bundle. Allowed Resources in the entry \"Patient\", \"Practitioner\", \"MedicationRequest\", \"Coverage\", \"ServiceRequest\", \"Condition\", \"Provenance\", \"Observation\",\"PractitionerRole\",\"Consent\",\"Condition\",\"Organization\",\"RelatedPerson\",\"Questionnaire\",\"QuestionnaireResponse\", \"MessageHeader\",\"List\", \"Parameters\"."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "questionnaire",
+			"item": [
+				{
+					"name": "Questionnaire-Lucentis-example",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/questionnaire?name=Lucentis&version=v1.0",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"questionnaire"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Lucentis",
+									"description": "(Required) "
+								},
+								{
+									"key": "version",
+									"value": "v1.0"
+								}
+							]
+						},
+						"description": "Retrieve Questionnaire based on query parameters.\n"
+					},
+					"response": [
+						{
+							"name": "Untitled Response",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "null"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the API encounters a bad request.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if no credentials are provided or the provided credentials are refused",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Unauthorized",
+							"code": 401,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned to indicate that  access to the requested URL by the client is forbidden for some reason.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Forbidden",
+							"code": 403,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the API encounters any errors like Resource not found.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the API encounters any errors like Method not allowed.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Method Not Allowed",
+							"code": 405,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the API encounters any errors like Not acceptable.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Not Acceptable",
+							"code": 406,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the API requires proxy authentication",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Proxy Authentication Required",
+							"code": 407,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the API encounters any errors like Unsupported media type.",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Unsupported Media Type",
+							"code": 415,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the API encounters any internal server error and is unable to process the request",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the server is currently unable to handle the request due to a temporary outage",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Service Unavailable",
+							"code": 503,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						},
+						{
+							"name": "This status code and error message will be returned in case if the proxy timed out waiting for response from service implementation",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/questionnaire?name=<string>&version=<string>",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"questionnaire"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "<string>",
+											"description": "(Required) "
+										},
+										{
+											"key": "version",
+											"value": "<string>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"status": "Gateway Timeout",
+							"code": 504,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"statusCode\": \"<number>\",\n  \"statusType\": \"<string>\",\n  \"statusMessage\": \"<string>\",\n  \"statusDetails\": {\n    \"description\": \"Error details in text format or any custom object to be added here.\",\n    \"x-amf-union\": [\n      \"aliqua nostrud irure\",\n      {\n        \"cillum_7a5\": -94735302.37159747,\n        \"elit17_\": 63132581,\n        \"anim_4b4\": \"in laborum sed pariatur\"\n      }\n    ]\n  },\n  \"correlationId\": \"<string>\"\n}"
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "enrollment",
+			"item": [
+				{
+					"name": "Enrollment-AS-example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resourceType\": \"Bundle\",\n  \"id\": \"a617f717-db3e-4b61-97cb-4e789a524ab2\",\n  \"meta\": {\n    \"profile\": [\n      \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-as-enrollment-bundle\"\n    ]\n  },\n  \"type\": \"message\",\n  \"identifier\": {\n    \"system\": \"http://vendor.com/ab\",\n    \"value\": \"adc47f64-c275-42de-827b-af0bc7dcec3f\",\n    \"assigner\": {\n      \"display\": \"Alpha Beta\"\n    },\n    \"type\": {\n      \"text\": \"Transaction ID\",\n      \"coding\": [\n        {\n          \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n          \"code\": \"RI\",\n          \"display\": \"Resource identifier\"\n        }\n      ]\n    }\n  },\n  \"entry\": [\n    {\n      \"fullUrl\": \"urn:uuid:eb5eb40b-78e8-4a52-903a-0348c1eac387\",\n      \"resource\": {\n        \"resourceType\": \"MessageHeader\",\n        \"id\": \"eb5eb40b-78e8-4a52-903a-0348c1eac387\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-messageheader\"\n          ]\n        },\n       \n        \"eventCoding\": {\n          \"system\": \"http://terminology.gene.com/fhir/usix/uapi/CodeSystem/uapi-event-type\",\n          \"code\": \"enrollment-with-consent\"\n        },\n        \"destination\": [\n          {\n            \"name\": \"UAPI-ENR-V1.0\",\n            \"endpoint\": \"https://test-us-e1.apis.roche.com/pharma-cmg-ehr-fhir-exp-test/v1/enrollment\"\n          }\n        ],\n        \"sender\": {\n          \"reference\": \"urn:uuid:01c31a2f-321d-4c6e-8349-206af8a88088\",\n          \"type\": \"Organization\"\n        },\n        \"source\": {\n          \"name\": \"AB\",\n          \"endpoint\": \"http://vendor.com/fhir/enrollmentID/ENR-00001\"\n        },\n        \"focus\": [\n          {\n            \"reference\": \"urn:uuid:7e8a5789-f41a-496f-94ad-fef0999bbcbe\",\n            \"type\": \"List\"\n          }\n        ],\n        \"extension\": [\n          {\n            \"url\": \"http://dev.gene.com/fhir/uapi/StructureDefinition/message-timestamp\",\n            \"valueDateTime\": \"2021-06-23T00:17:00\"\n          }\n        ]\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n      \"resource\": {\n        \"resourceType\": \"Patient\",\n        \"id\": \"fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-patient\"\n          ]\n        },\n       \n        \"identifier\": [\n          {\n            \"use\": \"official\",\n            \"type\": {\n              \"coding\": [\n                {\n                  \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                  \"code\": \"PI\",\n                  \"display\": \"Patient internal identifier\"\n                }\n              ]\n            },\n            \"system\": \"http://vendor.com/ab\",\n            \"value\": \"00003\",\n            \"assigner\": {\n              \"display\": \"AB Vendor\"\n            }\n          }\n        ],\n        \"name\": [\n          {\n            \"use\": \"official\",\n            \"family\": \"Bunny\",\n            \"given\": [\n              \"Bugs\"\n            ]\n          }\n        ],\n        \"telecom\": [\n          {\n            \"system\": \"phone\",\n            \"value\": \"1231231234\",\n            \"use\": \"home\",\n            \"rank\": 1\n          },\n          {\n            \"system\": \"phone\",\n            \"value\": \"1234561234\",\n            \"use\": \"mobile\",\n            \"rank\": 2\n          },\n          {\n            \"system\": \"email\",\n            \"value\": \"bobster83@example.com\",\n            \"use\": \"home\",\n            \"rank\": 3\n          }\n        ],\n        \"gender\": \"male\",\n        \"birthDate\": \"1972-10-29\",\n        \"address\": [\n          {\n            \"line\": [\n              \"1234 Main St\"\n            ],\n            \"city\": \"San Francisco\",\n            \"state\": \"CA\",\n            \"postalCode\": \"94105\",\n            \"country\": \"US\"\n          }\n        ],\n        \"communication\": [\n          {\n            \"language\": {\n              \"coding\": [\n                {\n                  \"system\": \"urn:ietf:bcp:47\",\n                  \"code\": \"en\",\n                  \"display\": \"English\"\n                }\n              ]\n            },\n            \"preferred\": true\n          }\n        ],\n        \"generalPractitioner\": [\n          {\n            \"reference\": \"urn:uuid:d3637025-883d-4678-9e0a-1d243a338f9f\"\n          }\n        ],\n        \"managingOrganization\": {\n          \"reference\": \"urn:uuid:01c31a2f-321d-4c6e-8349-206af8a88088\"\n        }\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:01c31a2f-321d-4c6e-8349-206af8a88088\",\n      \"resource\": {\n        \"resourceType\": \"Organization\",\n        \"id\": \"01c31a2f-321d-4c6e-8349-206af8a88088\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-organization\"\n          ]\n        },\n       \n        \"identifier\": [\n          {\n            \"use\": \"usual\",\n            \"system\": \"http://vendor.com/ab\",\n            \"value\": \"HOSP-12345\",\n            \"assigner\": {\n              \"display\": \"AB Vendor\"\n            }\n          },\n          {\n            \"use\": \"official\",\n            \"system\": \"http://dev.gene.com/fhir/mulesoft\",\n            \"value\": \"AB_HOSP-12345\",\n            \"assigner\": {\n              \"display\": \"UAPI Experience API Mulesoft\"\n            }\n          }\n        ],\n        \"type\": [\n          {\n            \"coding\": [\n              {\n                \"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\n                \"code\": \"prov\",\n                \"display\": \"Healthcare Provider\"\n              }\n            ]\n          }\n        ],\n        \"name\": \"Mid Atlantic Retina\",\n        \"telecom\": [\n          {\n            \"system\": \"phone\",\n            \"value\": \"8882704882\",\n            \"use\": \"work\",\n            \"rank\": 1\n          },\n          {\n            \"system\": \"fax\",\n            \"value\": \"8179974042\",\n            \"use\": \"work\",\n            \"rank\": 2\n          }\n        ],\n        \"address\": [\n          {\n            \"line\": [\n              \"8 Ranoldo Terrace\"\n            ],\n            \"city\": \"Cherry Hill\",\n            \"state\": \"NJ\",\n            \"postalCode\": \"08034\",\n            \"country\": \"US\"\n          }\n        ],\n        \"contact\": [\n          {\n            \"name\": {\n              \"use\": \"official\",\n              \"family\": \"Yardav\",\n              \"given\": [\n                \"Venus\"\n              ]\n            }\n          }\n        ]\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:695d0991-5e03-46df-934a-85a28acd95c1\",\n      \"resource\": {\n        \"resourceType\": \"Practitioner\",\n        \"id\": \"695d0991-5e03-46df-934a-85a28acd95c1\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-practitioner\"\n          ]\n        },\n       \n        \"identifier\": [\n          {\n            \"use\": \"official\",\n            \"type\": {\n              \"coding\": [\n                {\n                  \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                  \"code\": \"PRN\",\n                  \"display\": \"Provider identifier\"\n                }\n              ]\n            },\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\n            \"value\": \"1922071448\",\n            \"assigner\": {\n              \"display\": \"Centers for Medicare & Medicaid Services\"\n            }\n          },\n          {\n            \"use\": \"official\",\n            \"type\": {\n              \"coding\": [\n                {\n                  \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                  \"code\": \"TAX\",\n                  \"display\": \"Tax ID number\"\n                }\n              ]\n            },\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\n            \"value\": \"00000000\"\n          },\n          {\n            \"use\": \"official\",\n            \"type\": {\n              \"coding\": [\n                {\n                  \"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n                  \"code\": \"NPI\",\n                  \"display\": \"National provider identifier\"\n                }\n              ]\n            },\n            \"system\": \"http://hl7.org/fhir/sid/us-npi\",\n            \"value\": \"1234-ue3423f4\"\n          }\n        ],\n        \"name\": [\n          {\n            \"use\": \"official\",\n            \"family\": \"CRUZ\",\n            \"given\": [\n              \"MARISSA\"\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:42b41bdb-1781-49aa-a091-78cdd92129df\",\n      \"resource\": {\n        \"resourceType\": \"Coverage\",\n        \"id\": \"42b41bdb-1781-49aa-a091-78cdd92129df\",\n       \n        \"status\": \"active\",\n        \"type\": {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n              \"code\": \"HIP\",\n              \"display\": \"health insurance plan policy\"\n            }\n          ]\n        },\n        \"subscriber\": {\n          \"reference\": \"urn:uuid:4db51d32-65c3-4f8c-959e-0155c6d14545\",\n          \"type\": \"RelatedPerson\"\n        },\n        \"subscriberId\": \"4353\",\n        \"beneficiary\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        },\n        \"payor\": [\n          {\n            \"reference\": \"urn:uuid:d3637025-883d-4678-9e0a-1d243a338f9f\",\n            \"type\": \"Organization\"\n          }\n        ],\n        \"class\": [\n          {\n            \"type\": {\n              \"coding\": [\n                {\n                  \"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\n                  \"code\": \"group\",\n                  \"display\": \"Group\"\n                }\n              ]\n            },\n            \"value\": \"12344frgr\",\n            \"name\": \"Group Number\"\n          }\n        ],\n        \"order\": 1,\n        \"network\": \"Dakotacare\"\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:4db51d32-65c3-4f8c-959e-0155c6d14545\",\n      \"resource\": {\n        \"resourceType\": \"RelatedPerson\",\n        \"id\": \"4db51d32-65c3-4f8c-959e-0155c6d14545\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-relatedPerson\"\n          ]\n        },\n       \n        \"patient\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        },\n        \"relationship\": [\n          {\n            \"coding\": [\n              {\n                \"system\": \"http://terminology.hl7.org/CodeSystem/v3-RoleCode\",\n                \"code\": \"SIGOTHR\",\n                \"display\": \"significant other\"\n              }\n            ]\n          }\n        ],\n        \"name\": [\n          {\n            \"use\": \"official\",\n            \"family\": \"Smith\",\n            \"given\": [\n              \"Bob Paul\"\n            ]\n          }\n        ],\n        \"telecom\": [\n          {\n            \"system\": \"phone\",\n            \"value\": \"+33 (237) 998327\",\n            \"use\": \"mobile\"\n          }\n        ],\n        \"birthDate\": \"1972-10-29\"\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:5342779a-184f-42ba-ab44-3a8e023979f7\",\n      \"resource\": {\n        \"resourceType\": \"QuestionnaireResponse\",\n        \"id\": \"5342779a-184f-42ba-ab44-3a8e023979f7\",\n       \n        \"questionnaire\": \"https://dev.gene.com/fhir/uapi/fhirapi/Questionnaire/1234\",\n        \"status\": \"completed\",\n        \"subject\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        },\n        \"item\": [\n          {\n            \"linkId\": \"do-not-contact-patient\",\n            \"text\": \"Do not contact patient\",\n            \"answer\": [\n              {\n                \"valueBoolean\": true\n              }\n            ]\n          },\n          {\n            \"linkId\": \"has-patient-started-therapy\",\n            \"text\": \"Has Patient Started Therapy\",\n            \"answer\": [\n              {\n                \"valueBoolean\": true\n              }\n            ]\n          },\n          {\n            \"linkId\": \"ok-to-send-text-message\",\n            \"text\": \"Ok to send text messag\",\n            \"answer\": [\n              {\n                \"valueBoolean\": true\n              }\n            ]\n          },\n          {\n            \"linkId\": \"anticipated-date-of-treatment\",\n            \"text\": \"Anticipated Date of Treatment\",\n            \"answer\": [\n              {\n                \"valueDate\": \"2021-01-03\"\n              }\n            ]\n          },\n          {\n            \"linkId\": \"ok-to-leave-detailed-message\",\n            \"text\": \"Ok to leave detailed message\",\n            \"answer\": [\n              {\n                \"valueBoolean\": true\n              }\n            ]\n          }\n        ]\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:bc20c5ea-f639-4221-ab61-ce75c5e64aba\",\n      \"resource\": {\n        \"resourceType\": \"Condition\",\n        \"id\": \"bc20c5ea-f639-4221-ab61-ce75c5e64aba\",\n       \n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://hl7.org/fhir/sid/icd-10-cm\",\n              \"code\": \"E10.3211+TT1.2\"\n            }\n          ]\n        },\n        \"subject\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        }\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:1b53bfb2-1361-4906-acd8-35294d30273b\",\n      \"resource\": {\n        \"resourceType\": \"Consent\",\n        \"id\": \"1b53bfb2-1361-4906-acd8-35294d30273b\",\n       \n        \"status\": \"active\",\n        \"scope\": {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/consentscope\",\n              \"code\": \"patient-privacy\",\n              \"display\": \"Privacy Consent\"\n            }\n          ]\n        },\n        \"category\": [\n          {\n            \"coding\": [\n              {\n                \"system\": \"http://loinc.org\",\n                \"code\": \"59284-0\",\n                \"display\": \"Patient Authorization Signature\"\n              }\n            ]\n          }\n        ],\n        \"patient\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        },\n        \"policyRule\": {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.hl7.org/CodeSystem/consentpolicycodes\",\n              \"code\": \"hipaa-auth\",\n              \"display\": \"HIPAA Authorization\"\n            }\n          ]\n        }\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:cb626b8a-4e0e-484b-b4fb-1f48fd318418\",\n      \"resource\": {\n        \"resourceType\": \"Provenance\",\n        \"id\": \"cb626b8a-4e0e-484b-b4fb-1f48fd318418\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-provenance\"\n          ]\n        },\n       \n        \"target\": [\n          {\n            \"reference\": \"urn:uuid:1b53bfb2-1361-4906-acd8-35294d30273b\",\n            \"type\": \"Consent\"\n          }\n        ],\n        \"recorded\": \"2021-01-07T06:49:41.382941+00:00\",\n        \"agent\": [\n          {\n            \"who\": {\n              \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n              \"type\": \"Patient\"\n            }\n          }\n        ],\n        \"signature\": [\n          {\n            \"type\": [\n              {\n                \"system\": \"urn:iso-astm:E1762-95:2013\",\n                \"code\": \"1.2.840.10065.1.12.1.7\",\n                \"display\": \"Consent Signature\"\n              }\n            ],\n            \"when\": \"2021-01-07T06:49:41.382897+00:00\",\n            \"who\": {\n              \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n              \"type\": \"Patient\"\n            },\n            \"sigFormat\": \"image/*\",\n            \"data\": \"bQ==\"\n          }\n        ]\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:212c57ad-45cd-4882-87e7-8415ded3db05\",\n      \"resource\": {\n        \"resourceType\": \"ServiceRequest\",\n        \"id\": \"212c57ad-45cd-4882-87e7-8415ded3db05\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-servicerequest\"\n          ]\n        },\n       \n        \"status\": \"active\",\n        \"intent\": \"order\",\n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.gene.com/fhir/usix/uapi/CodeSystem/uapi-sr-type\",\n              \"code\": \"biPA\"\n            }\n          ]\n        },\n        \"subject\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        }\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:1409c0e9-6b06-4de5-82e7-577516c866db\",\n      \"resource\": {\n        \"resourceType\": \"ServiceRequest\",\n        \"id\": \"1409c0e9-6b06-4de5-82e7-577516c866db\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-servicerequest\"\n          ]\n        },\n       \n        \"status\": \"active\",\n        \"intent\": \"order\",\n        \"code\": {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.gene.com/fhir/usix/uapi/CodeSystem/uapi-sr-type\",\n              \"code\": \"starter\"\n            }\n          ]\n        },\n        \"subject\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        }\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:df610b38-2561-423c-b17a-36364f5a82c1\",\n      \"resource\": {\n        \"resourceType\": \"MedicationRequest\",\n        \"id\": \"df610b38-2561-423c-b17a-36364f5a82c1\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-medicationrequest\"\n          ]\n        },\n       \n        \"status\": \"active\",\n        \"intent\": \"order\",\n        \"medicationCodeableConcept\": {\n          \"coding\": [\n            {\n              \"system\": \"http://terminology.gene.com/fhir/usix/uapi/CodeSystem/uapi-product-name\",\n              \"code\": \"alecensa\",\n              \"display\": \"Alecensa\"\n            }\n          ]\n        },\n        \"subject\": {\n          \"reference\": \"urn:uuid:fc2e5a72-c363-4616-ae00-4ad25cbcb45c\",\n          \"type\": \"Patient\"\n        },\n        \"requester\": {\n          \"reference\": \"urn:uuid:695d0991-5e03-46df-934a-85a28acd95c1\",\n          \"type\": \"Practitioner\"\n        },\n        \"insurance\": [\n          {\n            \"reference\": \"urn:uuid:42b41bdb-1781-49aa-a091-78cdd92129df\",\n            \"type\": \"Coverage\"\n          }\n        ],\n        \"note\": [\n          {\n            \"text\": \"600mg BID\"\n          }\n        ],\n        \"dosageInstruction\": [\n          {\n            \"timing\": {\n              \"repeat\": {\n                \"frequency\": 2,\n                \"period\": 1,\n                \"periodUnit\": \"d\"\n              }\n            },\n            \"doseAndRate\": [\n              {\n                \"doseQuantity\": {\n                  \"value\": 600,\n                  \"unit\": \"mg\"\n                }\n              }\n            ]\n          }\n        ],\n        \"dispenseRequest\": {\n          \"numberOfRepeatsAllowed\": 3,\n          \"expectedSupplyDuration\": {\n            \"value\": 1,\n            \"unit\": \"mo\"\n          }\n        }\n      }\n    },\n    {\n      \"fullUrl\": \"urn:uuid:d3637025-883d-4678-9e0a-1d243a338f9f\",\n      \"resource\": {\n        \"resourceType\": \"Organization\",\n        \"id\": \"d3637025-883d-4678-9e0a-1d243a338f9f\",\n        \"meta\": {\n          \"profile\": [\n            \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-organization\"\n          ]\n        },\n       \n        \"identifier\": [\n          {\n            \"use\": \"usual\",\n            \"system\": \"http://vendor.com/ab\",\n            \"value\": \"a43d5b77-56a9-4bf5-a213-6c7c1c8ac757\",\n            \"assigner\": {\n              \"display\": \"AB Vendor\"\n            }\n          }\n        ],\n        \"type\": [\n          {\n            \"coding\": [\n              {\n                \"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\n                \"code\": \"ins\"\n              }\n            ]\n          }\n        ],\n        \"name\": \"Dakotacare\",\n        \"telecom\": [\n          {\n            \"system\": \"phone\",\n            \"value\": \"8778472862\",\n            \"use\": \"work\",\n            \"rank\": 1\n          }\n        ]\n      }\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/enrollment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"enrollment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Enrollment-AS-GPF-example",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"resourceType\": \"Bundle\",\n\t\"id\": \"afdd9b62-dc70-44d8-83ea-11ad269b48d7\",\n    \"meta\": {\n    \"profile\": [\n      \"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-as-enrollment-bundle\"\n    ]\n  },\n\t\"identifier\":\n\t{\n\t\t\"type\":\n\t\t{\n\t\t\t\"coding\": [\n\t\t\t{\n\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n\t\t\t\t\"code\": \"RI\",\n\t\t\t\t\"display\": \"Resource identifier\"\n\t\t\t}]\n\t\t},\n\t\t\"system\": \"http://vendor.com/ab\",\n\n\t\t\"assigner\":\n\t\t{\n\t\t\t\"display\": \"uapi\"\n\t\t}\n\t},\n\t\"type\": \"message\",\n\t\"entry\": [\n\t{\n\t\t\"fullUrl\": \"urn:uuid:4f3ee559-6e33-4207-a443-2ba29bb7be19\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"MessageHeader\",\n\t\t\t\"id\": \"4f3ee559-6e33-4207-a443-2ba29bb7be19\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-messageheader\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"eventCoding\":\n\t\t\t{\n\t\t\t\t\"system\": \"http://terminology.gene.com/fhir/usix/uapi/CodeSystem/uapi-event-type\",\n\t\t\t\t\"code\": \"enrollment-with-consent\"\n\t\t\t},\n\t\t\t\"destination\": [\n\t\t\t{\n\t\t\t\t\"name\": \"UAPI-ENR-V2.1\",\n\t\t\t\t\"endpoint\": \"https://test-us-e1.apis.roche.com/pharma-cmg-ehr-fhir-exp-test/v2/enrollment\"\n\t\t\t}],\n\t\t\t\"sender\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:b8bf0095-10a7-4160-8435-aa244590394e\",\n\t\t\t\t\"type\": \"Organization\"\n\t\t\t},\n\t\t\t\"source\":\n\t\t\t{\n\t\t\t\t\"name\": \"Vendor_AB\",\n\t\t\t\t\"endpoint\": \"http://vendor.com/fhir/enrollmentID/ENR-00001\"\n\t\t\t},\n\t\t\t\"focus\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:584681db-df12-4038-bc82-7c438b06e63b\",\n\t\t\t\t\"type\": \"List\"\n\t\t\t}]\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:584681db-df12-4038-bc82-7c438b06e63b\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"List\",\n\t\t\t\"id\": \"584681db-df12-4038-bc82-7c438b06e63b\",\n\t\t\n\t\t\t\"status\": \"current\",\n\t\t\t\"mode\": \"changes\",\n\t\t\t\"title\": \"messageContext\",\n\t\t\t\"entry\": [\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:2baaa0c6-8f42-4818-8722-3c74a4c2af32\",\n\t\t\t\t\t\"type\": \"Patient\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:b8bf0095-10a7-4160-8435-aa244590394e\",\n\t\t\t\t\t\"type\": \"Organization\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:695d0991-5e03-46df-934a-85a28acd95c1\",\n\t\t\t\t\t\"type\": \"Practitioner\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:42b41bdb-1781-49aa-a091-78cdd92129df\",\n\t\t\t\t\t\"type\": \"Coverage\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:4db51d32-65c3-4f8c-959e-0155c6d14545\",\n\t\t\t\t\t\"type\": \"RelatedPerson\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:2889be12-1664-4ac3-9506-6678794a3ad1\",\n\t\t\t\t\t\"type\": \"QuestionnaireResponse\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:bc20c5ea-f639-4221-ab61-ce75c5e64aba\",\n\t\t\t\t\t\"type\": \"Condition\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:1b53bfb2-1361-4906-acd8-35294d30273b\",\n\t\t\t\t\t\"type\": \"Consent\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:cb626b8a-4e0e-484b-b4fb-1f48fd318418\",\n\t\t\t\t\t\"type\": \"Provenance\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:21b30e89-e799-484a-abcd-8c25c0b2599b\",\n\t\t\t\t\t\"type\": \"Consent\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:3cb05f30-9842-4651-a17d-930d7170bedf\",\n\t\t\t\t\t\"type\": \"Provenance\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:aecbb129-9a73-4b59-9d66-ff5cdb3f3164\",\n\t\t\t\t\t\"type\": \"ServiceRequest\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:56889066-72f7-4be5-bdbe-9b0b31428c85\",\n\t\t\t\t\t\"type\": \"MedicationRequest\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"item\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:d3637025-883d-4678-9e0a-1d243a338f9f\",\n\t\t\t\t\t\"type\": \"Organization\"\n\t\t\t\t}\n\t\t\t}]\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:2baaa0c6-8f42-4818-8722-3c74a4c2af32\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Patient\",\n\t\t\t\"id\": \"2baaa0c6-8f42-4818-8722-3c74a4c2af32\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-patient\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"identifier\": [\n\t\t\t{\n\t\t\t\t\"use\": \"official\",\n\t\t\t\t\"type\":\n\t\t\t\t{\n\t\t\t\t\t\"coding\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n\t\t\t\t\t\t\"code\": \"PI\",\n\t\t\t\t\t\t\"display\": \"Patient internal identifier\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t\"system\": \"http://vendor.com/ab\",\n\t\t\t\t\"value\": \"503c35a7-fb80-4c29-82b0-6e5eee799eea\",\n\t\t\t\t\"assigner\":\n\t\t\t\t{\n\t\t\t\t\t\"display\": \"RACE\"\n\t\t\t\t}\n\t\t\t}],\n\t\t\t\"name\": [\n\t\t\t{\n\t\t\t\t\"use\": \"official\",\n\t\t\t\t\"family\": \"Sardar\",\n\t\t\t\t\"given\": [\n\t\t\t\t\t\"Patel\"\n\t\t\t\t]\n\t\t\t}],\n\t\t\t\"telecom\": [\n\t\t\t{\n\t\t\t\t\"system\": \"phone\",\n\t\t\t\t\"value\": \"4561209456\",\n\t\t\t\t\"use\": \"home\",\n\t\t\t\t\"rank\": 1\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"system\": \"phone\",\n\t\t\t\t\"value\": \"3324312041\",\n\t\t\t\t\"use\": \"mobile\",\n\t\t\t\t\"rank\": 2\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"system\": \"email\",\n\t\t\t\t\"value\": \"Patel@example.com\",\n\t\t\t\t\"use\": \"home\",\n\t\t\t\t\"rank\": 3\n\t\t\t}],\n\t\t\t\"gender\": \"male\",\n\t\t\t\"birthDate\": \"1989-03-23\",\n\t\t\t\"address\": [\n\t\t\t{\n\t\t\t\t\"line\": [\n\t\t\t\t\t\"1234 Main St\"\n\t\t\t\t],\n\t\t\t\t\"city\": \"San Francisco\",\n\t\t\t\t\"state\": \"CA\",\n\t\t\t\t\"postalCode\": \"94105\",\n\t\t\t\t\"country\": \"US\"\n\t\t\t}],\n\t\t\t\"communication\": [\n\t\t\t{\n\t\t\t\t\"language\":\n\t\t\t\t{\n\t\t\t\t\t\"coding\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"system\": \"urn:ietf:bcp:47\",\n\t\t\t\t\t\t\"code\": \"en\",\n\t\t\t\t\t\t\"display\": \"English\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t\"preferred\": true\n\t\t\t}],\n\t\t\t\"generalPractitioner\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:695d0991-5e03-46df-934a-85a28acd95c1\"\n\t\t\t}],\n\t\t\t\"managingOrganization\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:b8bf0095-10a7-4160-8435-aa244590394e\"\n\t\t\t}\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:b8bf0095-10a7-4160-8435-aa244590394e\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Organization\",\n\t\t\t\"id\": \"b8bf0095-10a7-4160-8435-aa244590394e\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-organization\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"identifier\": [\n\t\t\t{\n\t\t\t\t\"use\": \"usual\",\n\t\t\t\t\"system\": \"http://vendor.com/ab\",\n\t\t\t\t\"value\": \"HOSP-7945\",\n\t\t\t\t\"assigner\":\n\t\t\t\t{\n\t\t\t\t\t\"display\": \"RS Vendor\"\n\t\t\t\t}\n\t\t\t}],\n\t\t\t\"type\": [\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\n\t\t\t\t\t\"code\": \"prov\",\n\t\t\t\t\t\"display\": \"Healthcare Provider\"\n\t\t\t\t}]\n\t\t\t}],\n\t\t\t\"name\": \"Columbia Asthma and Allergy\",\n\t\t\t\"telecom\": [\n\t\t\t{\n\t\t\t\t\"system\": \"phone\"\n\t\t\t}],\n\t\t\t\"address\": [\n\t\t\t{\n\t\t\t\t\"line\": [\n\t\t\t\t\t\"8 Ranoldo Terrace\"\n\t\t\t\t],\n\t\t\t\t\"city\": \"Cherry Hill\",\n\t\t\t\t\"state\": \"WA\",\n\t\t\t\t\"postalCode\": \"08034\",\n\t\t\t\t\"country\": \"US\"\n\t\t\t}],\n\t\t\t\"contact\": [\n\t\t\t{\n\t\t\t\t\"name\":\n\t\t\t\t{\n\t\t\t\t\t\"use\": \"official\",\n\t\t\t\t\t\"family\": \"Yardav\",\n\t\t\t\t\t\"given\": [\n\t\t\t\t\t\t\"Venus\"\n\t\t\t\t\t]\n\t\t\t\t},\n\t\t\t\t\"telecom\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"phone\",\n\t\t\t\t\t\"value\": \"8881114882\",\n\t\t\t\t\t\"use\": \"work\",\n\t\t\t\t\t\"rank\": 1\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"fax\",\n\t\t\t\t\t\"value\": \"8179922421\",\n\t\t\t\t\t\"use\": \"work\",\n\t\t\t\t\t\"rank\": 2\n\t\t\t\t}]\n\t\t\t}]\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:695d0991-5e03-46df-934a-85a28acd95c1\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Practitioner\",\n\t\t\t\"id\": \"67db421a-1427-4de1-ae7c-937d2f1c0180\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-practitioner\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"identifier\": [\n\t\t\t{\n\t\t\t\t\"use\": \"official\",\n\t\t\t\t\"type\":\n\t\t\t\t{\n\t\t\t\t\t\"coding\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n\t\t\t\t\t\t\"code\": \"PRN\",\n\t\t\t\t\t\t\"display\": \"Provider identifier\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\n\t\t\t\t\"value\": \"1922071448\",\n\t\t\t\t\"assigner\":\n\t\t\t\t{\n\t\t\t\t\t\"display\": \"Centers for Medicare & Medicaid Services\"\n\t\t\t\t}\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"use\": \"official\",\n\t\t\t\t\"type\":\n\t\t\t\t{\n\t\t\t\t\t\"coding\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n\t\t\t\t\t\t\"code\": \"TAX\",\n\t\t\t\t\t\t\"display\": \"Tax ID number\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\n\t\t\t\t\"value\": \"00000007\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"use\": \"official\",\n\t\t\t\t\"type\":\n\t\t\t\t{\n\t\t\t\t\t\"coding\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v2-0203\",\n\t\t\t\t\t\t\"code\": \"NPI\",\n\t\t\t\t\t\t\"display\": \"National provider identifier\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/us-npi\",\n\t\t\t\t\"value\": \"1639285037\"\n\t\t\t}],\n\t\t\t\"name\": [\n\t\t\t{\n\t\t\t\t\"use\": \"official\",\n\t\t\t\t\"family\": \"WELCH\",\n\t\t\t\t\"given\": [\n\t\t\t\t\t\"JON\"\n\t\t\t\t]\n\t\t\t}]\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:42b41bdb-1781-49aa-a091-78cdd92129df\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Coverage\",\n\t\t\t\"id\": \"42b41bdb-1781-49aa-a091-78cdd92129df\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-coverage\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"status\": \"active\",\n\t\t\t\"type\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v3-ActCode\",\n\t\t\t\t\t\"code\": \"HIP\",\n\t\t\t\t\t\"display\": \"health insurance plan policy\"\n\t\t\t\t}]\n\t\t\t},\n\t\t\t\"subscriber\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:4db51d32-65c3-4f8c-959e-0155c6d14545\",\n\t\t\t\t\"type\": \"RelatedPerson\"\n\t\t\t},\n\t\t\t\"subscriberId\": \"4353\",\n\t\t\t\"beneficiary\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:2baaa0c6-8f42-4818-8722-3c74a4c2af32\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t},\n\t\t\t\"payor\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:d3637025-883d-4678-9e0a-1d243a338f9f\",\n\t\t\t\t\"type\": \"Organization\"\n\t\t\t}],\n\t\t\t\"class\": [\n\t\t\t{\n\t\t\t\t\"type\":\n\t\t\t\t{\n\t\t\t\t\t\"coding\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/coverage-class\",\n\t\t\t\t\t\t\"code\": \"group\",\n\t\t\t\t\t\t\"display\": \"Group\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t\"value\": \"123447777\",\n\t\t\t\t\"name\": \"Group Number\"\n\t\t\t}],\n\t\t\t\"order\": 1,\n\t\t\t\"network\": \"Dakotacare\"\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:4db51d32-65c3-4f8c-959e-0155c6d14545\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"RelatedPerson\",\n\t\t\t\"id\": \"4db51d32-65c3-4f8c-959e-0155c6d14545\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-relatedPerson\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"patient\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:2baaa0c6-8f42-4818-8722-3c74a4c2af32\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t},\n\t\t\t\"relationship\": [\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/v3-RoleCode\",\n\t\t\t\t\t\"code\": \"SIGOTHR\",\n\t\t\t\t\t\"display\": \"significant other\"\n\t\t\t\t}]\n\t\t\t}],\n\t\t\t\"name\": [\n\t\t\t{\n\t\t\t\t\"use\": \"official\",\n\t\t\t\t\"family\": \"7Smith\",\n\t\t\t\t\"given\": [\n\t\t\t\t\t\"Bob Paul\"\n\t\t\t\t]\n\t\t\t}],\n\t\t\t\"telecom\": [\n\t\t\t{\n\t\t\t\t\"system\": \"phone\",\n\t\t\t\t\"value\": \"23175998327\",\n\t\t\t\t\"use\": \"mobile\"\n\t\t\t}],\n\t\t\t\"birthDate\": \"1979-10-09\"\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:c29782b4-6ffc-494e-85ab-eee27bfd994a\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"QuestionnaireResponse\",\n\t\t\t\"id\": \"e73e8d9b-5ba5-4aca-af02-f41a770de246\",\n\n\t\t\t\"questionnaire\": \"https://dev.gene.com/fhir/uapi/fhirapi/Questionnaire/1234\",\n\t\t\t\"status\": \"completed\",\n\t\t\t\"subject\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:b3d46ea3-62e6-4171-b818-d64712edfe55\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t},\n\t\t\t\"item\": [\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Contact patient\",\n\t\t\t\t\t\"text\": \"Do not contact patient\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Has treatment started?\",\n\t\t\t\t\t\"text\": \"Has treatment started?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Treatment started?\",\n\t\t\t\t\t\"text\": \"Has Patient Started Therapy\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Shipment Options\",\n\t\t\t\t\t\"text\": \"Shipment Options\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Upfront\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Detailed message?\",\n\t\t\t\t\t\"text\": \"Ok to leave a detailed message?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Text message?\",\n\t\t\t\t\t\"text\": \"Ok to send text message?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"PA in place?\",\n\t\t\t\t\t\"text\": \"Is prior authorization in place?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"ADOT\",\n\t\t\t\t\t\"text\": \"Anticipated Date of Treatment (Optional)\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueDate\": \"2023-06-20\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Prescription plan?\",\n\t\t\t\t\t\"text\": \"Is this a Prescription plan?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Ship To\",\n\t\t\t\t\t\"text\": \"Ship To\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Prescriber\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Lucentis-S P Needed\",\n\t\t\t\t\t\"text\": \"Specialty Pharmacy Needed for Dispensing?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Specialty Pharmacy?\",\n\t\t\t\t\t\"text\": \"Specialty Pharmacy?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Onsite Pharmacy?\",\n\t\t\t\t\t\"text\": \"Onsite Pharmacy?\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Eligibility Reason\",\n\t\t\t\t\t\"text\": \"Eligibility Reason\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"No Insurance\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Household Income\",\n\t\t\t\t\t\"text\": \"Annual household income\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Under $75,000\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Household size\",\n\t\t\t\t\t\"text\": \"Household size\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"4\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Lucentis-Drug Allergies\",\n\t\t\t\t\t\"text\": \"Drug Allergies\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Pencilin\"\n\t\t\t\t\t}]\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"linkId\": \"Lucentis-Other Allergies\",\n\t\t\t\t\t\"text\": \"Other Allergies\",\n\t\t\t\t\t\"answer\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"valueString\": \"Yes\"\n\t\t\t\t\t}]\n\t\t\t\t}\n\t\t\t]\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:bc20c5ea-f639-4221-ab61-ce75c5e64aba\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Condition\",\n\t\t\t\"id\": \"bc20c5ea-f639-4221-ab61-ce75c5e64aba\",\n\t\t\n\t\t\t\"code\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://hl7.org/fhir/sid/icd-10-cm\",\n\t\t\t\t\t\"code\": \"E10.3211\"\n\t\t\t\t}]\n\t\t\t},\n\t\t\t\"subject\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:f11cbe86-b902-4148-a88a-ad4cc51a0b78\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t}\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:1b53bfb2-1361-4906-acd8-35294d30273b\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Consent\",\n\t\t\t\"id\": \"1b53bfb2-1361-4906-acd8-35294d30273b\",\n\t\t\n\t\t\t\"status\": \"active\",\n\t\t\t\"scope\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/consentscope\",\n\t\t\t\t\t\"code\": \"patient-privacy\",\n\t\t\t\t\t\"display\": \"Privacy Consent\"\n\t\t\t\t}]\n\t\t\t},\n\t\t\t\"category\": [\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://loinc.org\",\n\t\t\t\t\t\"code\": \"59284-0\",\n\t\t\t\t\t\"display\": \"Patient Authorization Signature\"\n\t\t\t\t}]\n\t\t\t}],\n\t\t\t\"patient\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:f11cbe86-b902-4148-a88a-ad4cc51a0b78\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t},\n\t\t\t\"performer\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:ed41d267-261f-e363-00c6-a26b014f6cde\",\n\t\t\t\t\"type\": \"RelatedPerson\"\n\t\t\t}],\n\t\t\t\"dateTime\": \"2023-05-20T16:01:01Z\",\n\t\t\t\"provision\":\n\t\t\t{\n\t\t\t\t\"type\": \"permit\"\n\t\t\t},\n\t\t\t\"policyRule\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/consentpolicycodes\",\n\t\t\t\t\t\"code\": \"hipaa-auth\",\n\t\t\t\t\t\"display\": \"HIPAA Authorization\"\n\t\t\t\t}]\n\t\t\t}\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:cb626b8a-4e0e-484b-b4fb-1f48fd318418\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Provenance\",\n\t\t\t\"id\": \"cb626b8a-4e0e-484b-b4fb-1f48fd318418\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-provenance\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"target\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:1b53bfb2-1361-4906-acd8-35294d30273b\",\n\t\t\t\t\"type\": \"Consent\"\n\t\t\t}],\n\t\t\t\"recorded\": \"2022-01-07T06:49:41.382941+00:00\",\n\t\t\t\"agent\": [\n\t\t\t{\n\t\t\t\t\"who\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:f11cbe86-b902-4148-a88a-ad4cc51a0b78\",\n\t\t\t\t\t\"type\": \"Patient\"\n\t\t\t\t}\n\t\t\t}],\n\t\t\t\"signature\": [\n\t\t\t{\n\t\t\t\t\"type\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"urn:iso-astm:E1762-95:2013\",\n\t\t\t\t\t\"code\": \"1.2.840.10065.1.12.1.7\",\n\t\t\t\t\t\"display\": \"Consent Signature\"\n\t\t\t\t}],\n\t\t\t\t\"when\": \"2021-01-07T06:49:41.382897+00:00\",\n\t\t\t\t\"who\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:f11cbe86-b902-4148-a88a-ad4cc51a0b78\",\n\t\t\t\t\t\"type\": \"Patient\"\n\t\t\t\t},\n\t\t\t\t\"sigFormat\": \"image/*\",\n\t\t\t\t\"data\": \"bQ==\"\n\t\t\t}]\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:21b30e89-e799-484a-abcd-8c25c0b2599b\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Consent\",\n\t\t\t\"id\": \"21b30e89-e799-484a-abcd-8c25c0b2599b\",\n\t\t\n\t\t\t\"status\": \"active\",\n\t\t\t\"scope\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/consentscope\",\n\t\t\t\t\t\"code\": \"patient-privacy\",\n\t\t\t\t\t\"display\": \"Privacy Consent\"\n\t\t\t\t}]\n\t\t\t},\n\t\t\t\"category\": [\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://loinc.org\",\n\t\t\t\t\t\"code\": \"59284-0\",\n\t\t\t\t\t\"display\": \"Prescriber Signature\"\n\t\t\t\t}]\n\t\t\t}],\n\t\t\t\"patient\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:f11cbe86-b902-4148-a88a-ad4cc51a0b78\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t},\n\t\t\t\"performer\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:ed41d267-261f-e363-00c6-a26b014f6cde\",\n\t\t\t\t\"type\": \"RelatedPerson\"\n\t\t\t}],\n\t\t\t\"dateTime\": \"2023-05-20T16:01:01Z\",\n\t\t\t\"provision\":\n\t\t\t{\n\t\t\t\t\"type\": \"permit\"\n\t\t\t},\n\t\t\t\"policyRule\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/consentpolicycodes\",\n\t\t\t\t\t\"code\": \"hipaa-auth\",\n\t\t\t\t\t\"display\": \"HIPAA Authorization\"\n\t\t\t\t}]\n\t\t\t}\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:3cb05f30-9842-4651-a17d-930d7170bedf\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Provenance\",\n\t\t\t\"id\": \"3cb05f30-9842-4651-a17d-930d7170bedf\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-provenance\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"target\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:21b30e89-e799-484a-abcd-8c25c0b2599b\",\n\t\t\t\t\"type\": \"Consent\"\n\t\t\t}],\n\t\t\t\"recorded\": \"2022-02-07T09:49:39.382941+00:00\",\n\t\t\t\"agent\": [\n\t\t\t{\n\t\t\t\t\"who\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:67db421a-1427-4de1-ae7c-937d2f1c0180\",\n\t\t\t\t\t\"type\": \"Practitioner\"\n\t\t\t\t}\n\t\t\t}],\n\t\t\t\"signature\": [\n\t\t\t{\n\t\t\t\t\"type\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"urn:iso-astm:E1762-95:2013\",\n\t\t\t\t\t\"code\": \"1.2.840.10065.1.12.1.7\",\n\t\t\t\t\t\"display\": \"Prescriber Form Signature\"\n\t\t\t\t}],\n\t\t\t\t\"when\": \"2022-02-07T09:49:39.382897+00:00\",\n\t\t\t\t\"who\":\n\t\t\t\t{\n\t\t\t\t\t\"reference\": \"urn:uuid:67db421a-1427-4de1-ae7c-937d2f1c0180\",\n\t\t\t\t\t\"type\": \"Practitioner\"\n\t\t\t\t},\n\t\t\t\t\"sigFormat\": \"image/*\",\n\t\t\t\t\"data\": \"bQ==\"\n\t\t\t}]\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:aecbb129-9a73-4b59-9d66-ff5cdb3f3164\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"ServiceRequest\",\n\t\t\t\"id\": \"aecbb129-9a73-4b59-9d66-ff5cdb3f3164\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-servicerequest\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"status\": \"active\",\n\t\t\t\"intent\": \"order\",\n\t\t\t\"code\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"https://dev.gene.com/CodeSystem/uapi-sr-type\",\n\t\t\t\t\t\"code\": \"patient foundation\",\n\t\t\t\t\t\"display\": \"patient foundation\"\n\t\t\t\t}]\n\t\t\t},\n\t\t\t\"subject\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:f11cbe86-b902-4148-a88a-ad4cc51a0b78\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t}\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:369dddea-b24f-4f8c-92d9-0595fa297cef\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"MedicationRequest\",\n\t\t\t\"id\": \"mr1\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"http://dev.gene.com/fhir/uapi/StructureDefinition/uapi-medicationrequest\"\n\t\t\t\t]\n\t\t\t},\n\n\t\t\t\"intent\": \"order\",\n\t\t\t\"medicationCodeableConcept\":\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.gene.com/fhir/usix/uapi/CodeSystem/uapi-product-name\",\n\t\t\t\t\t\"code\": \"lucentis\",\n\t\t\t\t\t\"display\": \"Lucentis\"\n\t\t\t\t}]\n\t\t\t},\n\t\t\t\"subject\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:b3d46ea3-62e6-4171-b818-d64712edfe55\",\n\t\t\t\t\"type\": \"Patient\"\n\t\t\t},\n\t\t\t\"requester\":\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:0c3b8b8b-cf22-41e2-a14d-1f3c288760c9\",\n\t\t\t\t\"type\": \"Practitioner\"\n\t\t\t},\n\t\t\t\"courseOfTherapyType\":\n\t\t\t{\n\t\t\t\t\"text\": \"Both Eyes 0.3 mg\"\n\t\t\t},\n\t\t\t\"insurance\": [\n\t\t\t{\n\t\t\t\t\"reference\": \"urn:uuid:94acf893-7fee-4ba9-bad7-be0b5b3acab5\",\n\t\t\t\t\"type\": \"Coverage\"\n\t\t\t}],\n\t\t\t\"note\": [\n\t\t\t{\n\t\t\t\t\"text\": \"Inject 0.3 mg (0.05 mL) intravitreally\"\n\t\t\t}],\n\t\t\t\"dosageInstruction\": [\n\t\t\t{\n\t\t\t\t\"timing\":\n\t\t\t\t{\n\t\t\t\t\t\"repeat\":\n\t\t\t\t\t{\n\t\t\t\t\t\t\"frequency\": 1,\n\t\t\t\t\t\t\"period\": 1,\n\t\t\t\t\t\t\"periodUnit\": \"mo\"\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t\"doseAndRate\": [\n\t\t\t\t{\n\t\t\t\t\t\"doseQuantity\":\n\t\t\t\t\t{\n\t\t\t\t\t\t\"value\": 0.3,\n\t\t\t\t\t\t\"unit\": \"mg\"\n\t\t\t\t\t}\n\t\t\t\t}]\n\t\t\t}],\n\t\t\t\"dispenseRequest\":\n\t\t\t{\n\t\t\t\t\"extension\": [\n\t\t\t\t{\n\t\t\t\t\t\"url\": \"https://fhir.developer.gene.com/StructureDefinition/dispenser-instruction\",\n\t\t\t\t\t\"valueAnnotation\":\n\t\t\t\t\t{\n\t\t\t\t\t\t\"text\": \"Dispense Instruction: Quantity 2 of 0.3 mg prefilled syringes and Quantity 3 of 0.5 mg prefilled syringes\"\n\t\t\t\t\t}\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"extension\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"url\": \"dispenseQuantity\",\n\t\t\t\t\t\t\"valueQuantity\":\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"value\": 2\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"url\": \"dispenseUnit\",\n\t\t\t\t\t\t\"valueString\": \"0.3 mg prefilled syringe(s)\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"url\": \"https://fhir.developer.gene.com/StructureDefinition/dispense-quantity-detail\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"extension\": [\n\t\t\t\t\t{\n\t\t\t\t\t\t\"url\": \"dispenseQuantity\",\n\t\t\t\t\t\t\"valueQuantity\":\n\t\t\t\t\t\t{\n\t\t\t\t\t\t\t\"value\": 3\n\t\t\t\t\t\t}\n\t\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\t\"url\": \"dispenseUnit\",\n\t\t\t\t\t\t\"valueString\": \"0.5 mg prefilled syringe(s)\"\n\t\t\t\t\t}],\n\t\t\t\t\t\"url\": \"https://fhir.developer.gene.com/StructureDefinition/dispense-quantity-detail\"\n\t\t\t\t}],\n\t\t\t\t\"numberOfRepeatsAllowed\": 12\n\t\t\t}\n\t\t}\n\t},\n\t{\n\t\t\"fullUrl\": \"urn:uuid:d3637025-883d-4678-9e0a-1d243a338f9f\",\n\t\t\"resource\":\n\t\t{\n\t\t\t\"resourceType\": \"Organization\",\n\t\t\t\"id\": \"d3637025-883d-4678-9e0a-1d243a338f9f\",\n\t\t\t\"meta\":\n\t\t\t{\n\t\t\t\t\"profile\": [\n\t\t\t\t\t\"https://dev.gene.com/StructureDefinition/uapi-organization\"\n\t\t\t\t]\n\t\t\t},\n\t\t\n\t\t\t\"identifier\": [\n\t\t\t{\n\t\t\t\t\"use\": \"usual\",\n\t\t\t\t\"system\": \"http://vendor.com/ab\",\n\t\t\t\t\"value\": \"PAY-111\",\n\t\t\t\t\"assigner\":\n\t\t\t\t{\n\t\t\t\t\t\"display\": \"GH Vendor\"\n\t\t\t\t}\n\t\t\t}],\n\t\t\t\"type\": [\n\t\t\t{\n\t\t\t\t\"coding\": [\n\t\t\t\t{\n\t\t\t\t\t\"system\": \"http://terminology.hl7.org/CodeSystem/organization-type\",\n\t\t\t\t\t\"code\": \"ins\"\n\t\t\t\t}]\n\t\t\t}],\n\t\t\t\"name\": \"Dakotacare\",\n\t\t\t\"telecom\": [\n\t\t\t{\n\t\t\t\t\"system\": \"phone\",\n\t\t\t\t\"value\": \"8778472862\",\n\t\t\t\t\"use\": \"work\",\n\t\t\t\t\"rank\": 1\n\t\t\t}]\n\t\t}\n\t}]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/enrollment",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"enrollment"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "<your_password_goes_here>",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "<your_username_goes_here>",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
